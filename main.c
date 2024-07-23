@@ -6,7 +6,7 @@
 #include <time.h>
 #include <stdint.h>
 
-#define NUM_RECORDS 200000  // Number of records to generate
+#define NUM_RECORDS 1000000  // Number of records to generate
 
 #define MAX_NAME_LENGTH 20
 #define MAX_EMAIL_LENGTH 40
