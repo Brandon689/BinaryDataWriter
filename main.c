@@ -8,15 +8,15 @@
 
 #define NUM_RECORDS 200000  // Number of records to generate
 
-#define MAX_NAME_LENGTH 30
-#define MAX_EMAIL_LENGTH 50
-#define MAX_CITY_LENGTH 30
-#define MAX_PREFECTURE_LENGTH 20
+#define MAX_NAME_LENGTH 20
+#define MAX_EMAIL_LENGTH 40
+#define MAX_CITY_LENGTH 20
+#define MAX_PREFECTURE_LENGTH 15
 
 typedef struct {
     char first_name[MAX_NAME_LENGTH + 1];
     char last_name[MAX_NAME_LENGTH + 1];
-    int age;
+    uint8_t age;  // Changed to uint8_t to save space
     char email[MAX_EMAIL_LENGTH + 1];
     float height;
     char city[MAX_CITY_LENGTH + 1];
@@ -67,9 +67,9 @@ Person generate_random_person() {
     strncpy(p.last_name, last_names[rand() % (sizeof(last_names) / sizeof(last_names[0]))], MAX_NAME_LENGTH);
     p.last_name[MAX_NAME_LENGTH] = '\0';
 
-    p.age = rand() % 80 + 18;  // Age between 18 and 97
+    p.age = (uint8_t)(rand() % 80 + 18);  // Age between 18 and 97
 
-    snprintf(p.email, MAX_EMAIL_LENGTH + 1, "%s.%s@example.com", p.first_name, p.last_name);
+    snprintf(p.email, MAX_EMAIL_LENGTH + 1, "%s.%s@ex.com", p.first_name, p.last_name);
 
     p.height = (rand() % 60 + 150) / 100.0f;  // Height between 1.50 and 2.10 meters
 
@@ -105,7 +105,7 @@ int main() {
 
         write_string(file, person.first_name, MAX_NAME_LENGTH);
         write_string(file, person.last_name, MAX_NAME_LENGTH);
-        fwrite(&person.age, sizeof(int), 1, file);
+        fwrite(&person.age, sizeof(uint8_t), 1, file);
         write_string(file, person.email, MAX_EMAIL_LENGTH);
         fwrite(&person.height, sizeof(float), 1, file);
         write_string(file, person.city, MAX_CITY_LENGTH);
